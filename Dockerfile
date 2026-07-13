@@ -4,12 +4,15 @@ FROM maven:3.9.11-eclipse-temurin-21 AS builder
 WORKDIR /app
 
 COPY pom.xml .
+COPY .mvn .mvn
+COPY mvnw .
+RUN chmod +x mvnw
 
-RUN mvn dependency:go-offline
+RUN ./mvnw dependency:go-offline
 
-COPY src ./src
+COPY src src
 
-RUN mvn clean package -DskipTests
+RUN ./mvnw clean package -DskipTests
 
 
 # ---------- Runtime Stage ----------
