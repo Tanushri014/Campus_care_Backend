@@ -4,6 +4,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
 @Component
 public class CookieUtil {
 
@@ -21,6 +22,7 @@ public class CookieUtil {
         cookie.setSecure(secure);
         cookie.setPath("/");
         cookie.setMaxAge(24 * 60 * 60);
+        cookie.setAttribute("SameSite", "None");
 
         response.addCookie(cookie);
     }
@@ -35,6 +37,7 @@ public class CookieUtil {
         cookie.setSecure(secure);
         cookie.setPath("/");
         cookie.setMaxAge(0);
+        cookie.setAttribute("SameSite", "None");
 
         response.addCookie(cookie);
     }
