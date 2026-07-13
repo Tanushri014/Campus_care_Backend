@@ -1,0 +1,17 @@
+CREATE TABLE IF NOT EXISTS admins (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    category VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS authorized_students (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    college_id VARCHAR(50) NOT NULL UNIQUE,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    department VARCHAR(100) NOT NULL,
+    year INT NOT NULL,
+    claimed BOOLEAN NOT NULL DEFAULT FALSE,
+    claimed_by_email VARCHAR(150)
+);
