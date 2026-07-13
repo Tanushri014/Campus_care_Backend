@@ -1,0 +1,14 @@
+target/
+.git/
+.idea/
+.vscode/
+
+uploads/
+logs/
+
+.env
+.env.*
+
+*.iml
+
+README.md

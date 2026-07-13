@@ -1,0 +1,31 @@
+# ================= DATABASE =================
+DB_URL=jdbc:
+DB_USERNAME=
+DB_PASSWORD=
+
+# ================= GOOGLE OAUTH =================
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+
+# ================= MAIL =================
+
+
+
+
+BREVO_SMTP_HOST=
+BREVO_SMTP_PORT=
+BREVO_SMTP_USERNAME=
+BREVO_SMTP_PASSWORD=
+BREVO_SENDER_EMAIL=
+
+
+
+
+# ================= JWT =================
+JWT_SECRET=
+
+# ================= FRONTEND =================
+FRONTEND_URL=
+
+# ================= FILE STORAGE =================
+UPLOAD_DIR=uploads/
