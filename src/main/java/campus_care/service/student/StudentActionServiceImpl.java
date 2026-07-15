@@ -118,60 +118,64 @@ public class StudentActionServiceImpl
     ========================================= */
 
     @Override
-    public ComplaintResponseDto getComplaintByIdForStudent(
+    public Complaint getComplaintByIdForStudent(
             Long complaintId,
             String studentEmail
     ) {
 
-        Student student = getStudentByEmail(studentEmail);
+        Student student =
+                getStudentByEmail(studentEmail);
 
-        Complaint complaint = complaintRepository.findById(complaintId)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException(
-                                "Complaint not found."
-                        ));
+        Complaint complaint =
+                complaintRepository.findById(complaintId)
+                        .orElseThrow(() ->
+                                new ResourceNotFoundException(
+                                        "Complaint not found."
+                                ));
 
-        if (!complaint.getStudent().getId().equals(student.getId())) {
+        if (!complaint.getStudent()
+                .getId()
+                .equals(student.getId())) {
+
             throw new UnauthorizedAcessException(
                     "Unauthorized access."
             );
         }
 
-        return mapToDto(complaint);
+        return complaint;
     }
-
     /* =========================================
        UPDATE COMPLAINT
     ========================================= */
 
     @Override
-    public ComplaintResponseDto updateComplaint(
+    public Complaint updateComplaint(
             Long complaintId,
             Complaint updatedComplaint,
             String studentEmail
     ) {
 
-        Student student = getStudentByEmail(studentEmail);
+        Complaint complaint =
+                getComplaintByIdForStudent(
+                        complaintId,
+                        studentEmail
+                );
 
-        Complaint complaint = complaintRepository.findById(complaintId)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException(
-                                "Complaint not found."
-                        ));
+        complaint.setTitle(
+                updatedComplaint.getTitle()
+        );
 
-        if (!complaint.getStudent().getId().equals(student.getId())) {
-            throw new UnauthorizedAcessException(
-                    "Unauthorized access."
-            );
-        }
+        complaint.setDescription(
+                updatedComplaint.getDescription()
+        );
 
-        complaint.setTitle(updatedComplaint.getTitle());
-        complaint.setDescription(updatedComplaint.getDescription());
-        complaint.setComplaintCategory(updatedComplaint.getComplaintCategory());
+        complaint.setComplaintCategory(
+                updatedComplaint.getComplaintCategory()
+        );
 
-        Complaint savedComplaint = complaintRepository.save(complaint);
-
-        return mapToDto(savedComplaint);
+        return complaintRepository.save(
+                complaint
+        );
     }
     /* =========================================
        DELETE COMPLAINT

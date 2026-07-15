@@ -28,12 +28,12 @@ public interface StudentActionService {
             int size
     );
 
-    ComplaintResponseDto getComplaintByIdForStudent(
+    Complaint getComplaintByIdForStudent(
             Long complaintId,
             String studentEmail
     );
 
-    ComplaintResponseDto updateComplaint(
+    Complaint updateComplaint(
             Long complaintId,
             Complaint complaint,
             String studentEmail

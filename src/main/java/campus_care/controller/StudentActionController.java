@@ -121,7 +121,7 @@ public class StudentActionController {
     ========================================= */
 
     @GetMapping("/complaints/{id}")
-    public ResponseEntity<ComplaintResponseDto> getComplaintById(
+    public ResponseEntity<Complaint> getComplaintById(
 
             @PathVariable Long id,
 
@@ -141,7 +141,7 @@ public class StudentActionController {
     ========================================= */
 
     @PutMapping("/complaints/{id}")
-    public ResponseEntity<ComplaintResponseDto> updateComplaint(
+    public ResponseEntity<Complaint> updateComplaint(
 
             @PathVariable Long id,
 
