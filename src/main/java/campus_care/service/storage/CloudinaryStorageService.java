@@ -47,7 +47,7 @@ public class CloudinaryStorageService implements FileStorageService {
 
             );
 
-            return result.get("secure_url").toString();
+            return result.get("public_id").toString();
 
         }
 

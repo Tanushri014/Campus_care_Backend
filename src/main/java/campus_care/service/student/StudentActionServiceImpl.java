@@ -75,9 +75,12 @@ public class StudentActionServiceImpl
 
         if (imageFile != null && !imageFile.isEmpty()) {
 
-            String imageUrl = cloudinaryStorageService.store(imageFile);
+            String imagePublicId = fileStorageService.store(
+                    imageFile,
+                    FileType.COMPLAINT
+            );
 
-            complaint.setImageUrl(imageUrl);
+            complaint.setImageUrl(imagePublicId);
         }
 
         complaint.setStudent(student);
@@ -92,61 +95,49 @@ public class StudentActionServiceImpl
     ========================================= */
 
     @Override
-    public Page<Complaint> getMyComplaints(
-
+    public Page<ComplaintResponseDto> getMyComplaints(
             String studentEmail,
-
             int page,
-
             int size
     ) {
 
-        Student student =
-                getStudentByEmail(studentEmail);
+        Student student = getStudentByEmail(studentEmail);
 
-        Pageable pageable =
-                PageRequest.of(
-                        page,
-                        size,
-                        Sort.by("createdAt").descending()
-                );
-
-        return complaintRepository.findByStudentId(
-                student.getId(),
-                pageable
+        Pageable pageable = PageRequest.of(
+                page,
+                size,
+                Sort.by("createdAt").descending()
         );
-    }
 
+        return complaintRepository
+                .findByStudentId(student.getId(), pageable)
+                .map(this::mapToDto);
+    }
     /* =========================================
        GET COMPLAINT
     ========================================= */
 
     @Override
-    public Complaint getComplaintByIdForStudent(
+    public ComplaintResponseDto getComplaintByIdForStudent(
             Long complaintId,
             String studentEmail
     ) {
 
-        Student student =
-                getStudentByEmail(studentEmail);
+        Student student = getStudentByEmail(studentEmail);
 
-        Complaint complaint =
-                complaintRepository.findById(complaintId)
-                        .orElseThrow(() ->
-                                new ResourceNotFoundException(
-                                        "Complaint not found."
-                                ));
+        Complaint complaint = complaintRepository.findById(complaintId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Complaint not found."
+                        ));
 
-        if (!complaint.getStudent()
-                .getId()
-                .equals(student.getId())) {
-
+        if (!complaint.getStudent().getId().equals(student.getId())) {
             throw new UnauthorizedAcessException(
                     "Unauthorized access."
             );
         }
 
-        return complaint;
+        return mapToDto(complaint);
     }
 
     /* =========================================
@@ -154,35 +145,34 @@ public class StudentActionServiceImpl
     ========================================= */
 
     @Override
-    public Complaint updateComplaint(
+    public ComplaintResponseDto updateComplaint(
             Long complaintId,
             Complaint updatedComplaint,
             String studentEmail
     ) {
 
-        Complaint complaint =
-                getComplaintByIdForStudent(
-                        complaintId,
-                        studentEmail
-                );
+        Student student = getStudentByEmail(studentEmail);
 
-        complaint.setTitle(
-                updatedComplaint.getTitle()
-        );
+        Complaint complaint = complaintRepository.findById(complaintId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Complaint not found."
+                        ));
 
-        complaint.setDescription(
-                updatedComplaint.getDescription()
-        );
+        if (!complaint.getStudent().getId().equals(student.getId())) {
+            throw new UnauthorizedAcessException(
+                    "Unauthorized access."
+            );
+        }
 
-        complaint.setComplaintCategory(
-                updatedComplaint.getComplaintCategory()
-        );
+        complaint.setTitle(updatedComplaint.getTitle());
+        complaint.setDescription(updatedComplaint.getDescription());
+        complaint.setComplaintCategory(updatedComplaint.getComplaintCategory());
 
-        return complaintRepository.save(
-                complaint
-        );
+        Complaint savedComplaint = complaintRepository.save(complaint);
+
+        return mapToDto(savedComplaint);
     }
-
     /* =========================================
        DELETE COMPLAINT
     ========================================= */
@@ -319,7 +309,12 @@ public class StudentActionServiceImpl
 
                 complaint.getDescription(),
 
-                complaint.getImageUrl(),
+                complaint.getImageUrl() == null
+                        ? null
+                        : fileStorageService.getFileUrl(
+                        complaint.getImageUrl(),
+                        FileType.COMPLAINT
+                ),
 
                 complaint.getAdminMessage(),
 

@@ -9,9 +9,7 @@ import campus_care.entity.Student;
 import campus_care.enums.ComplaintCategory;
 import campus_care.enums.ComplaintStatus;
 import campus_care.service.student.StudentActionService;
-
 import lombok.AllArgsConstructor;
-
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -76,16 +74,9 @@ public class StudentActionController {
         Complaint complaint = new Complaint();
 
         complaint.setTitle(title);
-
         complaint.setDescription(description);
-
-        complaint.setComplaintCategory(
-                complaintCategory
-        );
-
-        complaint.setStatus(
-                ComplaintStatus.PENDING
-        );
+        complaint.setComplaintCategory(complaintCategory);
+        complaint.setStatus(ComplaintStatus.PENDING);
 
         ComplaintResponseDto savedComplaint =
                 studentActionService.createComplaint(
@@ -105,7 +96,7 @@ public class StudentActionController {
     ========================================= */
 
     @GetMapping("/complaints")
-    public ResponseEntity<Page<Complaint>> getMyComplaints(
+    public ResponseEntity<Page<ComplaintResponseDto>> getMyComplaints(
 
             Authentication authentication,
 
@@ -130,7 +121,7 @@ public class StudentActionController {
     ========================================= */
 
     @GetMapping("/complaints/{id}")
-    public ResponseEntity<Complaint> getComplaintById(
+    public ResponseEntity<ComplaintResponseDto> getComplaintById(
 
             @PathVariable Long id,
 
@@ -150,7 +141,7 @@ public class StudentActionController {
     ========================================= */
 
     @PutMapping("/complaints/{id}")
-    public ResponseEntity<Complaint> updateComplaint(
+    public ResponseEntity<ComplaintResponseDto> updateComplaint(
 
             @PathVariable Long id,
 
@@ -207,7 +198,6 @@ public class StudentActionController {
         Feedback feedback = new Feedback();
 
         feedback.setMessage(dto.getMessage());
-
         feedback.setRating(dto.getRating());
 
         Feedback savedFeedback =
@@ -217,9 +207,7 @@ public class StudentActionController {
                         authentication.getName()
                 );
 
-        return ResponseEntity.ok(
-                savedFeedback
-        );
+        return ResponseEntity.ok(savedFeedback);
     }
 
     /* =========================================

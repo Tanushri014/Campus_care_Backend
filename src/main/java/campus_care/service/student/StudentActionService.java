@@ -1,12 +1,12 @@
 package campus_care.service.student;
 
+import campus_care.dto.ComplaintResponseDto;
 import campus_care.entity.Complaint;
 import campus_care.entity.ComplaintStatusHistory;
 import campus_care.entity.Feedback;
 import campus_care.entity.Student;
 import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
-import  campus_care.dto.ComplaintResponseDto;
 
 import java.util.List;
 
@@ -22,18 +22,18 @@ public interface StudentActionService {
             MultipartFile imageFile
     );
 
-    Page<Complaint> getMyComplaints(
+    Page<ComplaintResponseDto> getMyComplaints(
             String studentEmail,
             int page,
             int size
     );
 
-    Complaint getComplaintByIdForStudent(
+    ComplaintResponseDto getComplaintByIdForStudent(
             Long complaintId,
             String studentEmail
     );
 
-    Complaint updateComplaint(
+    ComplaintResponseDto updateComplaint(
             Long complaintId,
             Complaint complaint,
             String studentEmail
