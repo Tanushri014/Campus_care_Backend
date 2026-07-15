@@ -203,12 +203,11 @@ public class SecurityConfig {
 
                         .successHandler(successHandler)
 
-                        .failureHandler((req, res, ex) ->
+                        .failureHandler((req, res, ex) -> {
+                            ex.printStackTrace();
 
-                                res.sendRedirect(
-                                        frontendUrl + "/login?error=true"
-                                )
-                        )
+                            res.getWriter().println(ex.getMessage());
+                        })
                 )
 
                 /* ================= LOGOUT ================= */
