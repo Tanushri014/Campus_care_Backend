@@ -16,7 +16,7 @@ public class LostFoundResponseDto {
     private Long id;
 
     private String title;
-
+    private Long studentId;
     private String description;
 
     private String type;

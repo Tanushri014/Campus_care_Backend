@@ -36,7 +36,7 @@ public class LostFound {
     private LocalDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "student_id",nullable=false)
     private Student student;
 
     @PrePersist
