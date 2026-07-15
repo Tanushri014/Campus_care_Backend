@@ -253,6 +253,7 @@ private final EmailService emailService;
             pendingStudent.setCreatedAt(LocalDateTime.now());
 
             pendingStudentRepository.save(pendingStudent);
+            log.info("Saved pending user {}", pendingStudent.getStudentEmail());
         }
 
         // Student doesn't exist yet
