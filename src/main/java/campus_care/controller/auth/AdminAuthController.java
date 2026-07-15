@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/admin")
+//all routes start with it
 @RequiredArgsConstructor
 public class AdminAuthController {
 
