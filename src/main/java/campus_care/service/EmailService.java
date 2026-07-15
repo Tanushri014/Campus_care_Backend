@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ public class EmailService {
 
     @Value("${BREVO_SENDER_EMAIL}")
     private String fromEmail;
-
+@Async
     public void sendEmail(
             String email,
             String subject,

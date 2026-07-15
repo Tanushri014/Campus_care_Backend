@@ -155,12 +155,16 @@ private final EmailService emailService;
     pendingStudentRepository.delete(pendingStudent);
 
     otpService.deleteOtp(student.getStudentEmail());
-
+try{
     emailService.sendEmail(
             student.getStudentEmail(),
             "Successful Registration to CampusCare",
             "Welcome to CampusCare System"
     );
+}
+   catch(Exception e){
+    log.error("falied to send mail",e);
+   }
 
     String token = jwtUtil.generateToken(
             student.getStudentEmail(),
