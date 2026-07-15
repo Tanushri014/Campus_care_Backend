@@ -75,13 +75,9 @@ public class StudentActionServiceImpl
 
         if (imageFile != null && !imageFile.isEmpty()) {
 
-            String imageName =
-                    fileStorageService.store(
-                            imageFile,
-                            FileType.COMPLAINT
-                    );
+            String imageUrl = cloudinaryStorageService.store(imageFile);
 
-            complaint.setImageUrl(imageName);
+            complaint.setImageUrl(imageUrl);
         }
 
         complaint.setStudent(student);
@@ -323,12 +319,7 @@ public class StudentActionServiceImpl
 
                 complaint.getDescription(),
 
-                complaint.getImageUrl() == null
-                        ? null
-                        : fileStorageService.getFileUrl(
-                        complaint.getImageUrl(),
-                        FileType.COMPLAINT
-                ),
+                complaint.getImageUrl(),
 
                 complaint.getAdminMessage(),
 
