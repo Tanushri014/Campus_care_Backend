@@ -130,7 +130,7 @@ public class CloudinaryStorageService implements FileStorageService {
                 .resourceType(resourceType)
                 .transformation(
                         new com.cloudinary.Transformation<>()
-                                .flags("attachment:"+"notice.pdf")
+                                .flags("attachment:")
                 )
                 .generate(fileName);
         System.out.println("Generated URL = " + url);
