@@ -68,11 +68,8 @@ public class CloudinaryStorageService implements FileStorageService {
             String fileName,
             FileType fileType
     ) {
-
-        String resourceType =
-                fileType == FileType.NOTICE
-                        ? "raw"
-                        : "image";
+        // PDFs uploaded with resource_type:auto are stored as "image" in Cloudinary
+        String resourceType = "image";
 
         return cloudinary.url()
                 .secure(true)
@@ -84,46 +81,31 @@ public class CloudinaryStorageService implements FileStorageService {
             String fileName,
             FileType fileType
     ) {
-
         try {
-
-            String resourceType =
-                    fileType == FileType.NOTICE
-                            ? "raw"
-                            : "image";
+            String resourceType = "image"; // same fix here
 
             cloudinary.uploader().destroy(
-
                     fileName,
-
                     ObjectUtils.asMap(
                             "resource_type",
                             resourceType
                     )
-
             );
-
         }
-
         catch (Exception exception) {
-
             throw new StorageException(
                     "Failed to delete file from Cloudinary.",
                     exception
             );
-
         }
-
     }
+
     @Override
     public String getDownloadUrl(
             String fileName,
             FileType fileType
     ) {
-        String resourceType =
-                fileType == FileType.NOTICE
-                        ? "raw"
-                        : "image";
+        String resourceType = "image"; // same fix here
 
         String url = cloudinary.url()
                 .secure(true)
