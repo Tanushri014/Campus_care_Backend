@@ -125,14 +125,15 @@ public class CloudinaryStorageService implements FileStorageService {
                         ? "raw"
                         : "image";
 
-        String url= cloudinary.url()
+        String url = cloudinary.url()
                 .secure(true)
                 .resourceType(resourceType)
                 .transformation(
                         new com.cloudinary.Transformation<>()
-                                .flags("attachment:")
+                                .flags("attachment:notice")
                 )
                 .generate(fileName);
+
         System.out.println("Generated URL = " + url);
         return url;
     }
