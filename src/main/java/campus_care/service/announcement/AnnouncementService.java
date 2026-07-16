@@ -263,4 +263,20 @@ public class AnnouncementService {
 
         return announcementRepository.save(existing);
     }
+
+    public String getDownloadUrl(Long id) {
+
+        Announcement announcement =
+                announcementRepository.findById(id)
+                        .orElseThrow(() ->
+                                new ResourceNotFoundException(
+                                        "Announcement not found"
+                                )
+                        );
+
+        return fileStorageService.getDownloadUrl(
+                announcement.getFileUrl(),
+                FileType.NOTICE
+        );
+    }
 }

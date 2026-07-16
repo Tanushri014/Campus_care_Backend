@@ -114,4 +114,24 @@ public class CloudinaryStorageService implements FileStorageService {
         }
 
     }
+    @Override
+    public String getDownloadUrl(
+            String fileName,
+            FileType fileType
+    ) {
+
+        String resourceType =
+                fileType == FileType.NOTICE
+                        ? "raw"
+                        : "image";
+
+        return cloudinary.url()
+                .secure(true)
+                .resourceType(resourceType)
+                .transformation(
+                        new com.cloudinary.Transformation<>()
+                                .flags("attachment")
+                )
+                .generate(fileName);
+    }
 }

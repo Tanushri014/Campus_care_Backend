@@ -134,4 +134,11 @@ public class LocalFileStorageService implements FileStorageService {
         }
 
     }
+    @Override
+    public String getDownloadUrl(
+            String fileName,
+            FileType fileType
+    ) {
+        return getFileUrl(fileName, fileType);
+    }
 }

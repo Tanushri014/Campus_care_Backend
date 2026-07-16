@@ -14,6 +14,11 @@ public interface FileStorageService {
             String fileName,
             FileType fileType
     );
+    String getDownloadUrl(
+            String fileName,
+            FileType fileType
+    );
+
 
     void delete(
             String fileName,

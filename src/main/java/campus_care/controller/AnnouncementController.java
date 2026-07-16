@@ -91,4 +91,15 @@ public class AnnouncementController {
                 "Announcement deleted successfully"
         );
     }
+
+
+    @GetMapping("/announcements/{id}/download")
+    public ResponseEntity<String> downloadAnnouncement(
+            @PathVariable Long id
+    ) {
+
+        return ResponseEntity.ok(
+                announcementService.getDownloadUrl(id)
+        );
+    }
 }
