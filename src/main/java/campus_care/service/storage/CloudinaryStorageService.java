@@ -41,7 +41,8 @@ public class CloudinaryStorageService implements FileStorageService {
 
                             "use_filename", false,
 
-                            "unique_filename", true
+                            "unique_filename", true,
+                            "filename_override", file.getOriginalFilename() // keeps the .pdf extension
 
                     )
 
@@ -129,7 +130,7 @@ public class CloudinaryStorageService implements FileStorageService {
                 .resourceType(resourceType)
                 .transformation(
                         new com.cloudinary.Transformation<>()
-                                .flags("attachment")
+                                .flags("attachment"+"notice.pdf")
                 )
                 .generate(fileName);
         System.out.println("Generated URL = " + url);
