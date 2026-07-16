@@ -37,52 +37,48 @@ public class JwtFilter
 
     @Override
     protected void doFilterInternal(
-
             HttpServletRequest request,
-
             HttpServletResponse response,
-
             FilterChain filterChain
-
     ) throws ServletException, IOException {
+
+        String path = request.getServletPath();
+
+        // Skip JWT authentication for OAuth endpoints
+        if (path.startsWith("/oauth2/")
+                || path.startsWith("/login/oauth2/")
+                || path.equals("/error")
+                || path.equals("/favicon.ico")) {
+
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         String token = extractTokenFromCookie(request);
 
         if (token == null) {
-
             filterChain.doFilter(request, response);
-
             return;
         }
 
         if (!jwtUtil.validateToken(token)) {
-
             response.sendError(
                     HttpServletResponse.SC_UNAUTHORIZED,
                     "Invalid token"
             );
-
             return;
         }
 
         try {
 
-            String email =
-                    jwtUtil.extractEmail(token);
+            String email = jwtUtil.extractEmail(token);
+            String role = jwtUtil.extractRole(token);
 
-            String role =
-                    jwtUtil.extractRole(token);
+            List<SimpleGrantedAuthority> authorities = List.of(
+                    new SimpleGrantedAuthority("ROLE_" + role)
+            );
 
-            List<SimpleGrantedAuthority>
-                    authorities =
-                    List.of(
-                            new SimpleGrantedAuthority(
-                                    "ROLE_" + role
-                            )
-                    );
-
-            UsernamePasswordAuthenticationToken
-                    authentication =
+            UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(
                             email,
                             null,
@@ -90,14 +86,10 @@ public class JwtFilter
                     );
 
             authentication.setDetails(
-
-                    new WebAuthenticationDetailsSource()
-                            .buildDetails(request)
+                    new WebAuthenticationDetailsSource().buildDetails(request)
             );
 
-            SecurityContextHolder
-                    .getContext()
-                    .setAuthentication(authentication);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
         } catch (Exception e) {
 
@@ -105,16 +97,11 @@ public class JwtFilter
                     HttpServletResponse.SC_UNAUTHORIZED,
                     "Invalid token"
             );
-
             return;
         }
 
-        filterChain.doFilter(
-                request,
-                response
-        );
+        filterChain.doFilter(request, response);
     }
-
 
 
 
