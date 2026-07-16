@@ -46,7 +46,7 @@ public class CloudinaryStorageService implements FileStorageService {
                     )
 
             );
-
+            System.out.println(result);
             return result.get("public_id").toString();
 
         }
@@ -119,13 +119,12 @@ public class CloudinaryStorageService implements FileStorageService {
             String fileName,
             FileType fileType
     ) {
-
         String resourceType =
                 fileType == FileType.NOTICE
                         ? "raw"
                         : "image";
 
-        return cloudinary.url()
+        String url= cloudinary.url()
                 .secure(true)
                 .resourceType(resourceType)
                 .transformation(
@@ -133,5 +132,7 @@ public class CloudinaryStorageService implements FileStorageService {
                                 .flags("attachment")
                 )
                 .generate(fileName);
+        System.out.println("Generated URL = " + url);
+        return url;
     }
 }
