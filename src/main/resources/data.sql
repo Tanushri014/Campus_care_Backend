@@ -1,11 +1,11 @@
 INSERT IGNORE INTO authorized_students
 (college_id, first_name, last_name, department, year, claimed, claimed_by_email)
 VALUES
-('ENTC2026001', 'Tanushri', 'Matre', 'ENTC',2024 , false, NULL),
+('ENTC2026001', 'Tanushri', 'Matre', 'ENTC',2026 , false, NULL),
 ('ENTC2026002', 'Rahul', 'Sharma', 'ENTC', 2024, false, NULL),
-('COMP2026001', 'Sneha', 'Patil', 'Computer', 2024, false, NULL),
-('IT2026001', 'Amit', 'Joshi', 'Information Technology', 2024, false, NULL),
-('MECH2026001', 'Rohan', 'Deshmukh', 'Mechanical',2024, false, NULL),
+('COMP2026001', 'Sneha', 'Patil', 'Computer', 2026, false, NULL),
+('IT2026001', 'Amit', 'Joshi', 'Information Technology', 2026, false, NULL),
+('MECH2026001', 'Rohan', 'Deshmukh', 'Mechanical',2023, false, NULL),
 ('CIVIL2026001', 'Priya', 'Kulkarni', 'Civil', 2024, false, NULL),
 ('AIDS2026001', 'Neha', 'Jadhav', 'AI & Data Science', 2024, false, NULL),
 ('ECE2026001', 'Karan', 'More', 'Electronics', 2024, false, NULL),
