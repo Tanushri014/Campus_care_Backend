@@ -1,16 +1,16 @@
 INSERT IGNORE INTO authorized_students
 (college_id, first_name, last_name, department, year, claimed, claimed_by_email)
 VALUES
-('ENTC2026001', 'Tanushri', 'Matre', 'ENTC', 3, false, NULL),
-('ENTC2026002', 'Rahul', 'Sharma', 'ENTC', 2, false, NULL),
-('COMP2026001', 'Sneha', 'Patil', 'Computer', 3, false, NULL),
-('IT2026001', 'Amit', 'Joshi', 'Information Technology', 4, false, NULL),
-('MECH2026001', 'Rohan', 'Deshmukh', 'Mechanical', 2, false, NULL),
-('CIVIL2026001', 'Priya', 'Kulkarni', 'Civil', 1, false, NULL),
-('AIDS2026001', 'Neha', 'Jadhav', 'AI & Data Science', 3, false, NULL),
-('ECE2026001', 'Karan', 'More', 'Electronics', 4, false, NULL),
-('CHEM2026001', 'Sakshi', 'Pawar', 'Chemical', 2, false, NULL),
-('MBA2026001', 'Aditya', 'Patel', 'MBA', 1, false, NULL);
+('ENTC2026001', 'Tanushri', 'Matre', 'ENTC',2024 , false, NULL),
+('ENTC2026002', 'Rahul', 'Sharma', 'ENTC', 2024, false, NULL),
+('COMP2026001', 'Sneha', 'Patil', 'Computer', 2024, false, NULL),
+('IT2026001', 'Amit', 'Joshi', 'Information Technology', 2024, false, NULL),
+('MECH2026001', 'Rohan', 'Deshmukh', 'Mechanical',2024, false, NULL),
+('CIVIL2026001', 'Priya', 'Kulkarni', 'Civil', 2024, false, NULL),
+('AIDS2026001', 'Neha', 'Jadhav', 'AI & Data Science', 2024, false, NULL),
+('ECE2026001', 'Karan', 'More', 'Electronics', 2024, false, NULL),
+('CHEM2026001', 'Sakshi', 'Pawar', 'Chemical', 2024, false, NULL),
+('MBA2026001', 'Aditya', 'Patel', 'MBA', 2024, false, NULL);
 
 INSERT IGNORE INTO admins (email, password, category)
 VALUES
