@@ -16,7 +16,7 @@ public class EmailService {
 
     private final JavaMailSender mailSender;
 
-    @Value("${BREVO_SENDER_EMAIL}")
+    @Value("${brevo.sender-email}")
     private String fromEmail;
 @Async
     public void sendEmail(
